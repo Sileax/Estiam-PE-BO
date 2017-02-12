@@ -144,54 +144,51 @@ var Users = React.createClass({
         if (user) {
             return (
                 <div>
-                    <div className="row header-row">
-                        <div className="col-md-2 text-center">
+                    <div className="row header-row margin-bottom flex">
+                        <div className="col-md-2 text-center vertical-align">
                             <span className="header-title">Pseudo</span>
                         </div>
-                        <div className="col-md-2 text-center">
+                        <div className="col-md-2 text-center vertical-align">
                             <span className="header-title">Email</span>
                         </div>
-                        <div className="col-md-1 text-center">
+                        <div className="col-md-1 text-center vertical-align">
                             <span className="header-title">Age</span>
                         </div>
-                        <div className="col-md-2 text-center">
+                        <div className="col-md-2 text-center vertical-align">
                             <span className="header-title">Nom</span>
                         </div>
-                        <div className="col-md-2 text-center">
+                        <div className="col-md-2 text-center vertical-align">
                             <span className="header-title">Prenom</span>
                         </div>
-                        <div className="col-md-2 text-center">
-                            <span className="header-title">Bannir</span>
+                        <div className="col-md-2 text-center vertical-align">
+                            <span className="header-title">Mise a jour</span>
                         </div>
                     </div>
                     {this
                         .state
                         .Data
                         .map((user, index) => {
-                            return <div key={index} className="row">
-                                <div className="col-md-2 text-center">
+                            return <div key={index} className="row margin-bottom flex">
+                                <div className="col-md-2 text-center vertical-align">
                                     <span>{user.pseudo}</span>
                                 </div>
-                                <div className="col-md-2 text-center">
+                                <div className="col-md-2 text-center vertical-align">
                                     <span>{user.email}</span>
                                 </div>
-                                <div className="col-md-1 text-center">
+                                <div className="col-md-1 text-center vertical-align">
                                     <span>22</span>
                                 </div>
-                                <div className="col-md-2 text-center">
+                                <div className="col-md-2 text-center vertical-align">
                                     <span>{user.nom}</span>
                                 </div>
-                                <div className="col-md-2 text-center">
+                                <div className="col-md-2 text-center vertical-align">
                                     <span>{user.prenom}</span>
                                 </div>
-                                <div className="col-md-1 text-center">
-                                    <span>Ban</span>
-                                </div>
-                                <div className="col-md-1 text-center">
+                                <div className="col-md-2 text-center vertical-align">
                                     <button
-                                        onClick={this
+                                        className="btn btn-success" onClick={this
                                         .openModal
-                                        .bind(this, user.id)}>Test</button>
+                                        .bind(this, user.id)}>Update User</button>
                                 </div>
                             </div>;
                         })}
