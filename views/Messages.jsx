@@ -9,7 +9,7 @@ var Users = React.createClass({
     getUsers: function () {
         var self = this;
         var custom = this.props.custom;
-        fetch('http://193.70.40.193:3000/api/users', {
+        fetch('http://193.70.40.193:3000/api/contact', {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -146,22 +146,16 @@ var Users = React.createClass({
                 <div>
                     <div className="row header-row">
                         <div className="col-md-2 text-center">
-                            <span className="header-title">Pseudo</span>
-                        </div>
-                        <div className="col-md-2 text-center">
                             <span className="header-title">Email</span>
                         </div>
-                        <div className="col-md-1 text-center">
-                            <span className="header-title">Age</span>
+                        <div className="col-md-3 text-center">
+                            <span className="header-title">Sujet</span>
+                        </div>
+                        <div className="col-md-5 text-center">
+                            <span className="header-title">Message</span>
                         </div>
                         <div className="col-md-2 text-center">
-                            <span className="header-title">Nom</span>
-                        </div>
-                        <div className="col-md-2 text-center">
-                            <span className="header-title">Prenom</span>
-                        </div>
-                        <div className="col-md-2 text-center">
-                            <span className="header-title">Bannir</span>
+                            <span className="header-title">Read</span>
                         </div>
                     </div>
                     {this
@@ -170,24 +164,15 @@ var Users = React.createClass({
                         .map((user, index) => {
                             return <div key={index} className="row">
                                 <div className="col-md-2 text-center">
-                                    <span>{user.pseudo}</span>
-                                </div>
-                                <div className="col-md-2 text-center">
                                     <span>{user.email}</span>
                                 </div>
-                                <div className="col-md-1 text-center">
-                                    <span>22</span>
+                                <div className="col-md-3 text-center">
+                                    <span>{user.subject}</span>
+                                </div>
+                                <div className="col-md-5 text-center">
+                                    <span>{user.message}</span>
                                 </div>
                                 <div className="col-md-2 text-center">
-                                    <span>{user.nom}</span>
-                                </div>
-                                <div className="col-md-2 text-center">
-                                    <span>{user.prenom}</span>
-                                </div>
-                                <div className="col-md-1 text-center">
-                                    <span>Ban</span>
-                                </div>
-                                <div className="col-md-1 text-center">
                                     <button
                                         onClick={this
                                         .openModal

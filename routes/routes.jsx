@@ -12,6 +12,7 @@ module.exports = (
             <Route path='index' component={require('../views/Index.jsx')} />
             <Route path='about' component={require('../views/About.jsx')} />
             <Route path='users' component={require('../views/Users.jsx')} />
+            <Route path='messages' component={require('../views/Messages.jsx')} />
         </Route>
     </Router>
 );

@@ -19,7 +19,7 @@ var Layout = React.createClass({
                 </head>
                 <body>
                     <div className="row">
-                        <div className="col-md-1 fill">
+                        <div className="col-md-2 fill">
                             <div id="sidebar" className="well fill sidebar-nav">
                                 <h5 className="active">
                                     <i className="glyphicon glyphicon-home"></i>
@@ -29,7 +29,7 @@ var Layout = React.createClass({
                                 </h5>
                                 <ul className="nav nav-pills nav-stacked">
                                     <li>
-                                        <Link to="/home" activeClassName="active">Home</Link>
+                                        <Link to="/index" activeClassName="active">Home</Link>
                                     </li>
                                 </ul>
                                 <h5>
@@ -40,12 +40,23 @@ var Layout = React.createClass({
                                 </h5>
                                 <ul className="nav nav-pills nav-stacked">
                                     <li>
-                                        <Link to="/users" activeClassName="active">List</Link>
+                                        <Link to="/users" activeClassName="active">List Users</Link>
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <i className="glyphicon glyphicon-envelope"></i>
+                                    <small>
+                                        <b>MESSAGES</b>
+                                    </small>
+                                </h5>
+                                <ul className="nav nav-pills nav-stacked">
+                                    <li>
+                                        <Link to="/messages" activeClassName="active">Messages</Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-11">
+                        <div className="col-md-10">
                             {this.props.children}
                         </div>
                     </div>
