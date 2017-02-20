@@ -27,6 +27,27 @@ var Users = React.createClass({
         })
     },
 
+    getAddresses: function (id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch('http://193.70.40.193:3000/api/address/' + id, {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            }
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            console.log('parsed json', json)
+            self.setUsersState(json)
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    },
+
     updateUser(id) {
         var self = this;
         var custom = this.props.custom;
@@ -64,6 +85,40 @@ var Users = React.createClass({
         })
     },
 
+    updateAddress(id) {
+        var self = this;
+        var custom = this.props.custom;
+        let type = document
+            .querySelector('#addressType')
+            .value;
+        let street = document
+            .querySelector('#address')
+            .value;
+        let city = document
+            .querySelector('#city')
+            .value;
+        let ZC = document
+            .querySelector('#ZC')
+            .value;
+        fetch('http://193.70.40.193:3000/api/address/' + id, {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+            body: "type=" + type + "&street=" + street + "&city=" + city + "&ZC=" + ZC
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.closeModal();
+            self.toggleNotification();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    },
+
     setUsersState: function (json) {
         this.setState({Data: json});
         console.log(json);
@@ -87,6 +142,7 @@ var Users = React.createClass({
         var self = this;
         var custom = this.props.custom;
         this.setState({userId: id});
+        console.log(id);
         fetch('http://193.70.40.193:3000/api/users/' + id, {
             method: "GET",
             mode: 'cors',
@@ -119,9 +175,21 @@ var Users = React.createClass({
             document
                 .querySelector('#userId')
                 .value = json.id;
+            document
+                .querySelector('#addressType')
+                .value = json.userAddresses.type;
+            document
+                .querySelector('#address')
+                .value = json.userAddresses.street;
+            document
+                .querySelector('#city')
+                .value = json.userAddresses.city;
+            document
+                .querySelector('#ZC')
+                .value = json.userAddresses.ZC;
         }).catch((ex) => {
             console.log('parsing failed', ex)
-        })
+        });
     },
 
     toggleNotification() {
@@ -141,6 +209,7 @@ var Users = React.createClass({
     },
     render: function () {
         var user = this.state.Data;
+        console.log(user);
         if (user) {
             return (
                 <div>
@@ -186,7 +255,8 @@ var Users = React.createClass({
                                 </div>
                                 <div className="col-md-2 text-center vertical-align">
                                     <button
-                                        className="btn btn-success" onClick={this
+                                        className="btn btn-success"
+                                        onClick={this
                                         .openModal
                                         .bind(this, user.id)}>Update User</button>
                                 </div>
@@ -281,13 +351,77 @@ var Users = React.createClass({
                                 </div>
                             </fieldset>
                         </form>
+                        <h2 ref="subtitle" className="text-center">Modify user address</h2>
+                        <form className="form-horizontal" action="javascript:void(0);">
+                            <fieldset className="text-center">
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="pseudo">Type d'adresse</label>
+                                    <div className="controls">
+                                        <select name="addressType" id="addressType">
+                                            <option value="Billing">Facturation</option>
+                                            <option value="Shipping">Livraison</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="address">Adresse</label>
+                                    <div className="controls">
+                                        <input
+                                            type="text"
+                                            id="address"
+                                            name="address"
+                                            placeholder="Addresse"
+                                            className="input-xlarge"/>
+                                        <p className="help-block">Modifier addresse</p>
+                                    </div>
+                                </div>
+
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="city">Ville</label>
+                                    <div className="controls">
+                                        <input
+                                            type="text"
+                                            id="city"
+                                            name="city"
+                                            placeholder="Ville"
+                                            className="input-xlarge"/>
+                                        <p className="help-block">Modifier la ville</p>
+                                    </div>
+                                </div>
+
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="firstname">Code postal</label>
+                                    <div className="controls">
+                                        <input
+                                            type="text"
+                                            id="ZC"
+                                            name="ZC"
+                                            placeholder="Code postal"
+                                            className="input-xlarge"/>
+                                        <p className="help-block">Modifier code postal</p>
+                                    </div>
+                                </div>
+
+                                <div className="control-group">
+                                    <div className="controls">
+                                        <button
+                                            onClick={this
+                                            .updateAddress
+                                            .bind(this, this.state.userId)}
+                                            className="btn btn-success">Update Address</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+
                     </Modal>
-                        <Notification
-                            isActive={this.state.isActive}
-                            message="User has been updated"
-                            action="Dismiss"
-                            onDismiss={this.toggleNotification}
-                            onClick={() => this.setState({isActive: false})}/>
+                    <Notification
+                        isActive={this.state.isActive}
+                        message="User has been updated"
+                        action="Dismiss"
+                        onDismiss={this.toggleNotification}
+                        onClick={() => this.setState({isActive: false})}/>
                 </div>
             );
         } else {
