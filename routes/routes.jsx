@@ -13,6 +13,8 @@ module.exports = (
             <Route path='about' component={require('../views/About.jsx')} />
             <Route path='users' component={require('../views/Users.jsx')} />
             <Route path='messages' component={require('../views/Messages.jsx')} />
+            <Route path='listMasks' component={require('../views/ListMasks.jsx')} />
+            <Route path='createMask' component={require('../views/CreateMask.jsx')} />
         </Route>
     </Router>
 );

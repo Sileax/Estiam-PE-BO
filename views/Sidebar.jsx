@@ -21,7 +21,7 @@ var Layout = React.createClass({
                     <div className="row">
                         <div className="col-md-2 fill">
                             <div id="sidebar" className="well fill sidebar-nav">
-                                <h5 className="active">
+                                <h5>
                                     <i className="glyphicon glyphicon-home"></i>
                                     <small>
                                         <b>HOME</b>
@@ -52,6 +52,20 @@ var Layout = React.createClass({
                                 <ul className="nav nav-pills nav-stacked">
                                     <li>
                                         <Link to="/messages" activeClassName="active">Messages</Link>
+                                    </li>
+                                </ul>
+                                <h5>
+                                    <i className="glyphicon glyphicon-picture"></i>
+                                    <small>
+                                        <b>MASKS</b>
+                                    </small>
+                                </h5>
+                                <ul className="nav nav-pills nav-stacked">
+                                    <li>
+                                        <Link to="/listMasks" activeClassName="active">List masks</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/createMask" activeClassName="active">Create mask</Link>
                                     </li>
                                 </ul>
                             </div>

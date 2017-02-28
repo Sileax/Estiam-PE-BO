@@ -3,13 +3,14 @@ var connect = require('react-redux').connect;
 require('fetch-everywhere');
 var Modal = require('react-modal');
 var Notification = require('react-notification').Notification;
+const apiUrl = "http://localhost:3000/api";
 
 var Users = React.createClass({
 
     getUsers: function () {
         var self = this;
         var custom = this.props.custom;
-        fetch('http://193.70.40.193:3000/api/users', {
+        fetch(apiUrl + '/users', {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -27,10 +28,10 @@ var Users = React.createClass({
         })
     },
 
-    getAddresses: function (id) {
+    /*getAddresses: function (id) {
         var self = this;
         var custom = this.props.custom;
-        fetch('http://193.70.40.193:3000/api/address/' + id, {
+        fetch(apiUrl + '/address/' + id, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -46,7 +47,7 @@ var Users = React.createClass({
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
-    },
+    },*/
 
     updateUser(id) {
         var self = this;
@@ -66,7 +67,7 @@ var Users = React.createClass({
         let birthday = document
             .querySelector('#birthday')
             .value;
-        fetch('http://193.70.40.193:3000/api/users/' + id, {
+        fetch(apiUrl + '/users/' + id, {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -100,7 +101,7 @@ var Users = React.createClass({
         let ZC = document
             .querySelector('#ZC')
             .value;
-        fetch('http://193.70.40.193:3000/api/address/' + id, {
+        fetch(apiUrl + '/address/' + id, {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -143,7 +144,7 @@ var Users = React.createClass({
         var custom = this.props.custom;
         this.setState({userId: id});
         console.log(id);
-        fetch('http://193.70.40.193:3000/api/users/' + id, {
+        fetch(apiUrl + '/users/' + id, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -170,23 +171,23 @@ var Users = React.createClass({
             document
                 .querySelector('#birthday')
                 .value = json
-                .birthday
+                .dateNaissance
                 .replace(/T00:00:00.000Z/, '');
             document
                 .querySelector('#userId')
                 .value = json.id;
             document
                 .querySelector('#addressType')
-                .value = json.userAddresses.type;
+                .value = json.Addresses[0].type;
             document
                 .querySelector('#address')
-                .value = json.userAddresses.street;
+                .value = json.Addresses[0].street;
             document
                 .querySelector('#city')
-                .value = json.userAddresses.city;
+                .value = json.Addresses[0].city;
             document
                 .querySelector('#ZC')
-                .value = json.userAddresses.ZC;
+                .value = json.Addresses[0].ZC;
         }).catch((ex) => {
             console.log('parsing failed', ex)
         });

@@ -101,3 +101,7 @@ input[type="password"] {
 .vertical-align{
     margin: auto;
 }
+
+.active{
+    background-color: #FFFFFF;
+}
