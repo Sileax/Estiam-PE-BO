@@ -144,51 +144,72 @@ var Users = React.createClass({
         var user = this.state.Data;
         if (user) {
             return (
-                <div>
-                    <div className="row header-row">
-                        <div className="col-md-2 text-center">
-                            <span className="header-title">Email</span>
-                        </div>
-                        <div className="col-md-3 text-center">
-                            <span className="header-title">Sujet</span>
-                        </div>
-                        <div className="col-md-5 text-center">
-                            <span className="header-title">Message</span>
-                        </div>
-                        <div className="col-md-2 text-center">
-                            <span className="header-title">Read</span>
-                        </div>
+                <div className="box box-primary">
+                    <div className="box-header with-border">
+                        <h3 className="box-title">Messages</h3>
                     </div>
-                    {this
-                        .state
-                        .Data
-                        .map((user, index) => {
-                            return <div key={index} className="row">
-                                <div className="col-md-2 text-center">
-                                    <span>{user.email}</span>
-                                </div>
-                                <div className="col-md-3 text-center">
-                                    <span>{user.subject}</span>
-                                </div>
-                                <div className="col-md-5 text-center">
-                                    <span>{user.message}</span>
-                                </div>
-                                <div className="col-md-2 text-center">
-                                    <button
-                                        onClick={this
-                                        .openModal
-                                        .bind(this, user.id)}>Test</button>
-                                </div>
-                            </div>;
-                        })}
+                    <div className="table-responsive mailbox-messages">
+                        <table className="table table-hover table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Expéditeur</th>
+                                    <th>Sujet</th>
+                                    <th>Message</th>
+                                    <th>Lire</th>
+                                </tr>
+                                {this
+                                    .state
+                                    .Data
+                                    .map((message, index) => {
+                                        let email = message.email;
+                                        let subject = message.subject;
+                                        let messageText = message.message;
+                                        if (messageText.length > 75) {
+                                            messageText = messageText.substr(0, 75);
+                                            messageText += "..."
+                                        }
+                                        return <tr key={index}>
+                                            <td className="mailbox-name">
+                                                {message.readed
+                                                    ? <span>{email}</span>
+                                                    : <b>
+                                                        {email}
+                                                    </b>}
+                                            </td>
+                                            <td className="mailbox-name">
+                                                {message.readed
+                                                    ? <span>{subject}</span>
+                                                    : <b>
+                                                        {subject}
+                                                    </b>}
+                                            </td>
+                                            <td className="mailbox-subject">
+                                                {message.readed
+                                                    ? <span>{messageText}</span>
+                                                    : <b>
+                                                        {messageText}
+                                                    </b>}
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="btn btn-primary btn-flat"
+                                                    onClick={this
+                                                    .openModal
+                                                    .bind(this, message.id)}>Read
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    })}
+                            </tbody>
+                        </table>
+                    </div>
                     <Modal
                         isOpen={this.state.modalIsOpen}
                         onAfterOpen={this.afterOpenModal}
                         onRequestClose={this.closeModal}
                         contentLabel="Example Modal">
-
                         <h2 ref="subtitle" className="text-center">Modify User</h2>
-                        <form className="form-horizontal" action="javascript:void(0);">
+                        < form className="form-horizontal" action="javascript:void(0);">
                             <fieldset className="text-center">
                                 <div className="control-group">
                                     <label className="control-label" htmlFor="pseudo">Pseudo</label>
@@ -270,13 +291,13 @@ var Users = React.createClass({
                                 </div>
                             </fieldset>
                         </form>
-                    </Modal>
-                        <Notification
-                            isActive={this.state.isActive}
-                            message="User has been updated"
-                            action="Dismiss"
-                            onDismiss={this.toggleNotification}
-                            onClick={() => this.setState({isActive: false})}/>
+                    </Modal >
+                    <Notification
+                        isActive={this.state.isActive}
+                        message="User has been updated"
+                        action="Dismiss"
+                        onDismiss={this.toggleNotification}
+                        onClick={() => this.setState({isActive: false})}/>
                 </div>
             );
         } else {

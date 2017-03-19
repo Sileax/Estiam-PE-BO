@@ -139,6 +139,10 @@ var Users = React.createClass({
         this.getUsers();
     },
     openModal(id) {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "hidden";
         this.setState({modalIsOpen: true});
         var self = this;
         var custom = this.props.custom;
@@ -155,7 +159,7 @@ var Users = React.createClass({
         }).then((response) => {
             return response.json()
         }).then((json) => {
-            console.log(json);
+            console.log(json.Addresses[0].type);
             document
                 .querySelector('#pseudo')
                 .value = json.pseudo;
@@ -199,13 +203,11 @@ var Users = React.createClass({
         })
     },
 
-    afterOpenModal() {
-        // references are now sync'd and can be accessed.
-        this.refs.subtitle.style.color = '#f00';
-
-    },
-
     closeModal() {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "visible";
         this.setState({modalIsOpen: false});
     },
     render: function () {
@@ -213,216 +215,143 @@ var Users = React.createClass({
         console.log(user);
         if (user) {
             return (
-                <div>
-                    <div className="row header-row margin-bottom flex">
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Pseudo</span>
-                        </div>
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Email</span>
-                        </div>
-                        <div className="col-md-1 text-center vertical-align">
-                            <span className="header-title">Age</span>
-                        </div>
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Nom</span>
-                        </div>
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Prenom</span>
-                        </div>
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Mise a jour</span>
-                        </div>
+                <div className="box">
+                    <div className="box-header">
+                        <h3 className="box-title">List of all registered users
+                        </h3>
+
                     </div>
-                    {this
-                        .state
-                        .Data
-                        .map((user, index) => {
-                            return <div key={index} className="row margin-bottom flex">
-                                <div className="col-md-2 text-center vertical-align">
-                                    <span>{user.pseudo}</span>
-                                </div>
-                                <div className="col-md-2 text-center vertical-align">
-                                    <span>{user.email}</span>
-                                </div>
-                                <div className="col-md-1 text-center vertical-align">
-                                    <span>22</span>
-                                </div>
-                                <div className="col-md-2 text-center vertical-align">
-                                    <span>{user.nom}</span>
-                                </div>
-                                <div className="col-md-2 text-center vertical-align">
-                                    <span>{user.prenom}</span>
-                                </div>
-                                <div className="col-md-2 text-center vertical-align">
-                                    <button
-                                        className="btn btn-success"
-                                        onClick={this
-                                        .openModal
-                                        .bind(this, user.id)}>Update User</button>
-                                </div>
-                            </div>;
-                        })}
-                    <Modal
-                        isOpen={this.state.modalIsOpen}
-                        onAfterOpen={this.afterOpenModal}
-                        onRequestClose={this.closeModal}
-                        contentLabel="Example Modal">
+                    <div className="box-body table-responsive no-padding">
+                        <table className="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Pseudo</th>
+                                    <th>Email</th>
+                                    <th>Age</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Mise a jour</th>
+                                </tr>
+                                {this
+                                    .state
+                                    .Data
+                                    .map((user, index) => {
+                                        return <tr key={index}>
+                                            <td>{user.pseudo}</td>
+                                            <td>{user.email}</td>
+                                            <td>22</td>
+                                            <td>{user.nom}</td>
+                                            <td>{user.prenom}</td>
+                                            <td>
+                                                <button
+                                                    className="btn btn-primary btn-flat"
+                                                    onClick={this
+                                                    .openModal
+                                                    .bind(this, user.userId)}>Update User
+                                                </button>
+                                            </td>
+                                        </tr>;
+                                    })}
 
-                        <h2 ref="subtitle" className="text-center">Modify User</h2>
-                        <form className="form-horizontal" action="javascript:void(0);">
-                            <fieldset className="text-center">
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="pseudo">Pseudo</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="pseudo"
-                                            name="pseudo"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouveau pseudo</p>
-                                    </div>
-                                </div>
+                            </tbody>
+                        </table>
 
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="email">E-mail</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="email"
-                                            name="email"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouvel email</p>
-                                    </div>
-                                </div>
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onAfterOpen={this.afterOpenModal}
+                            onRequestClose={this.closeModal}
+                            contentLabel="Example Modal">
 
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="birthday">Date de Naissance</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="birthday"
-                                            name="birthday"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier date de naissance</p>
-                                    </div>
+                            <div className="box box-primary">
+                                <div className="box-header with-border">
+                                    <h3 className="box-title">Modify user informations</h3>
                                 </div>
+                                <form role="form">
+                                    <div className="box-body">
+                                        <div className="form-group">
+                                            <label htmlFor="pseudo">Pseudo</label>
+                                            <input className="form-control" id="pseudo" placeholder="Pseudo" type="email"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="email">Email</label>
+                                            <input className="form-control" id="email" placeholder="Email" type="email"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="birthday">Date de Naissance</label>
+                                            <input
+                                                className="form-control"
+                                                id="birthday"
+                                                placeholder="Date de naissance"
+                                                type="text"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="firstname">Prenom</label>
+                                            <input
+                                                className="form-control"
+                                                id="firstname"
+                                                placeholder="Prenom"
+                                                type="text"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="lastname">Nom</label>
+                                            <input className="form-control" id="lastname" placeholder="Nom" type="text"/>
+                                        </div>
+                                        <div className="control-group">
+                                            <div className="controls">
+                                                <input type="hidden" id="userId"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="box-footer">
+                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div className="box box-primary">
+                                <div className="box-header with-border">
+                                    <h3 className="box-title">Modify user address</h3>
+                                </div>
+                                <form role="form">
+                                    <div className="box-body">
+                                        <div className="form-group">
+                                            <label htmlFor="addressType">Type d'adresse</label>
+                                            <select className="form-control" id="addressType">
+                                                <option value="Billing">Facturation</option>
+                                                <option value="Shipping">Livraison</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="address">Adresse</label>
+                                            <input
+                                                className="form-control"
+                                                id="address"
+                                                placeholder="Addresse"
+                                                type="text"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="city">Ville</label>
+                                            <input className="form-control" id="city" placeholder="Ville" type="text"/>
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="ZC">Prenom</label>
+                                            <input className="form-control" id="ZC" placeholder="Code postal" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div className="box-footer">
+                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
 
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="firstname">Prenom</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="firstname"
-                                            name="firstname"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier Prenom</p>
-                                    </div>
-                                </div>
+                        </Modal>
+                        <Notification
+                            isActive={this.state.isActive}
+                            message="User has been updated"
+                            action="Dismiss"
+                            onDismiss={this.toggleNotification}
+                            onClick={() => this.setState({isActive: false})}/>
+                    </div>
 
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="lastname">Nom</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="lastname"
-                                            name="lastname"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier Prenom</p>
-                                    </div>
-                                </div>
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <input type="hidden" id="userId"/>
-                                    </div>
-                                </div>
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <button
-                                            onClick={this
-                                            .updateUser
-                                            .bind(this, this.state.userId)}
-                                            className="btn btn-success">Update user</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                        <h2 ref="subtitle" className="text-center">Modify user address</h2>
-                        <form className="form-horizontal" action="javascript:void(0);">
-                            <fieldset className="text-center">
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="pseudo">Type d'adresse</label>
-                                    <div className="controls">
-                                        <select name="addressType" id="addressType">
-                                            <option value="Billing">Facturation</option>
-                                            <option value="Shipping">Livraison</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="address">Adresse</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="address"
-                                            name="address"
-                                            placeholder="Addresse"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier addresse</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="city">Ville</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="city"
-                                            name="city"
-                                            placeholder="Ville"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier la ville</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="firstname">Code postal</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="ZC"
-                                            name="ZC"
-                                            placeholder="Code postal"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier code postal</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <button
-                                            onClick={this
-                                            .updateAddress
-                                            .bind(this, this.state.userId)}
-                                            className="btn btn-success">Update Address</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-
-                    </Modal>
-                    <Notification
-                        isActive={this.state.isActive}
-                        message="User has been updated"
-                        action="Dismiss"
-                        onDismiss={this.toggleNotification}
-                        onClick={() => this.setState({isActive: false})}/>
                 </div>
             );
         } else {

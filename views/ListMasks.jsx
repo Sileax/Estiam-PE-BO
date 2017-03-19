@@ -123,6 +123,10 @@ class ListMasks extends React.Component {
     }
 
     openModal(id) {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "hidden";
         this.setState({modalIsOpen: true});
         var self = this;
         var custom = this.props.custom;
@@ -156,6 +160,10 @@ class ListMasks extends React.Component {
     }
 
     closeModal() {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "visible";
         this.setState({modalIsOpen: false});
     }
 
@@ -164,115 +172,114 @@ class ListMasks extends React.Component {
         var dimension = this.state.Dimensions;
         if (mask && dimension) {
             return (
-                <div>
-                    <div className="row header-row margin-bottom flex">
-                        <div className="col-md-4 text-center vertical-align">
-                            <span className="header-title">ID</span>
-                        </div>
-                        <div className="col-md-3 text-center vertical-align">
-                            <span className="header-title">Nom</span>
-                        </div>
-                        <div className="col-md-3 text-center vertical-align">
-                            <span className="header-title">Price</span>
-                        </div>
-                        <div className="col-md-2 text-center vertical-align">
-                            <span className="header-title">Modify</span>
-                        </div>
+                <div className="box">
+                    <div className="box-header">
+                        <h3 className="box-title">List of all masks
+                        </h3>
+
                     </div>
-                    {this
-                        .state
-                        .Data
-                        .map((mask, index) => {
-                            return <div key={index} className="row margin-bottom flex">
-                                <div className="col-md-4 text-center vertical-align">
-                                    <span>{mask.id}</span>
-                                </div>
-                                <div className="col-md-3 text-center vertical-align">
-                                    <span>{mask.name}</span>
-                                </div>
-                                <div className="col-md-3 text-center vertical-align">
-                                    <span>{mask.price}</span>
-                                </div>
-                                <div className="col-md-2 text-center vertical-align">
-                                    <button
-                                        className="btn btn-success"
-                                        onClick={this
-                                        .openModal
-                                        .bind(this, mask.id)}>Update Mask</button>
-                                </div>
-                            </div>;
-                        })}
-                    <Modal
-                        isOpen={this.state.modalIsOpen}
-                        onRequestClose={this.closeModal}
-                        contentLabel="Example Modal">
+                    <div className="box-body table-responsive no-padding">
+                        <table className="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Prix</th>
+                                    <th className="pull-right">Mise a jour</th>
+                                </tr>
+                                {this
+                                    .state
+                                    .Data
+                                    .map((mask, index) => {
+                                        return <tr key={index}>
+                                            <td>{mask.id}</td>
+                                            <td>{mask.name}</td>
+                                            <td>{mask.price}</td>
+                                            <td className="pull-right">
+                                                <button
+                                                    className="btn btn-primary btn-flat"
+                                                    onClick={this
+                                                    .openModal
+                                                    .bind(this, mask.id)}>Update mask
+                                                </button>
+                                            </td>
+                                        </tr>;
+                                    })}
 
-                        <h2 className="text-center">Update Mask</h2>
-                        <form className="form-horizontal" action="javascript:void(0);">
-                            <fieldset className="text-center">
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="name">Nom</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            placeholder="Nom"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouveau nom</p>
-                                    </div>
-                                </div>
+                            </tbody>
+                        </table>
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onRequestClose={this.closeModal}
+                            contentLabel="Example Modal">
 
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="price">Prix</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="price"
-                                            name="price"
-                                            placeholder="Prix"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouvel prix</p>
+                            <h2 className="text-center">Update Mask</h2>
+                            <form className="form-horizontal" action="javascript:void(0);">
+                                <fieldset className="text-center">
+                                    <div className="control-group">
+                                        <label className="control-label" htmlFor="name">Nom</label>
+                                        <div className="controls">
+                                            <input
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                placeholder="Nom"
+                                                className="input-xlarge"/>
+                                            <p className="help-block">Nouveau nom</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="price">Formats</label>
-                                    <div className="controls">
-                                        <select name="dimensions" id="dimensions">
-                                            {this
-                                                .state
-                                                .Dimensions
-                                                .map((dimension, index) => {
-                                                    return <option value={dimension.id} key={index}>{dimension.width + "x" + dimension.height}</option>
-                                                })}
-                                        </select>
-                                        <p className="help-block">Modifier format du masque</p>
-                                    </div>
-                                </div>
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <input type="hidden" id="maskID"/>
-                                    </div>
-                                </div>
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <button
-                                            onClick={this
-                                            .updateMask
-                                            .bind(this, this.state.maskID)}
-                                            className="btn btn-success">Update Mask</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
 
-                    </Modal>
-                    <Notification
-                        isActive={this.state.isActive}
-                        message="Mask has been updated"
-                        action="Dismiss"
-                        onDismiss={this.toggleNotification}
-                        onClick={() => this.setState({isActive: false})}/>
+                                    <div className="control-group">
+                                        <label className="control-label" htmlFor="price">Prix</label>
+                                        <div className="controls">
+                                            <input
+                                                type="text"
+                                                id="price"
+                                                name="price"
+                                                placeholder="Prix"
+                                                className="input-xlarge"/>
+                                            <p className="help-block">Nouvel prix</p>
+                                        </div>
+                                    </div>
+                                    <div className="control-group">
+                                        <label className="control-label" htmlFor="price">Formats</label>
+                                        <div className="controls">
+                                            <select name="dimensions" id="dimensions">
+                                                {this
+                                                    .state
+                                                    .Dimensions
+                                                    .map((dimension, index) => {
+                                                        return <option value={dimension.id} key={index}>{dimension.width + "x" + dimension.height}</option>
+                                                    })}
+                                            </select>
+                                            <p className="help-block">Modifier format du masque</p>
+                                        </div>
+                                    </div>
+                                    <div className="control-group">
+                                        <div className="controls">
+                                            <input type="hidden" id="maskID"/>
+                                        </div>
+                                    </div>
+                                    <div className="control-group">
+                                        <div className="controls">
+                                            <button
+                                                onClick={this
+                                                .updateMask
+                                                .bind(this, this.state.maskID)}
+                                                className="btn btn-success">Update Mask</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+
+                        </Modal>
+                        <Notification
+                            isActive={this.state.isActive}
+                            message="Mask has been updated"
+                            action="Dismiss"
+                            onDismiss={this.toggleNotification}
+                            onClick={() => this.setState({isActive: false})}/>
+                    </div>
                 </div>
             );
         } else {
@@ -282,7 +289,6 @@ class ListMasks extends React.Component {
         }
     }
 };
-
 var wrapper = connect(function (state) {
     return {custom: state};
 });

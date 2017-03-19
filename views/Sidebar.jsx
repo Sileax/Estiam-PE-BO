@@ -1,6 +1,9 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var connect = require('react-redux').connect;
+var Header = require('./Header.jsx');
+var Sidebar = require('./Sidebar2.jsx');
+var LoginPage = require('./Login.jsx');
 
 var Layout = React.createClass({
     _handleClick: function () {
@@ -12,73 +15,58 @@ var Layout = React.createClass({
             <html>
                 <head>
                     <title>{custom.title}</title>
-                    <link rel='stylesheet' href='/base.css'/>
+                    <link rel="stylesheet" href="base.css"/>
+                    <link rel="stylesheet" href="AdminLTE/bootstrap/css/bootstrap.min.css"/>
                     <link
-                        rel='stylesheet'
-                        href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'/>
+                        rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+                    <link rel="stylesheet" href="AdminLTE/dist/css/AdminLTE.min.css"/>
+                    <link rel="stylesheet" href="AdminLTE/dist/css/skins/_all-skins.min.css"/>
+                    <link rel="stylesheet" href="AdminLTE/plugins/iCheck/flat/blue.css"/>
+                    <link rel="stylesheet" href="AdminLTE/plugins/morris/morris.css"/>
+                    <link
+                        rel="stylesheet"
+                        href="AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css"/>
+                    <link rel="stylesheet" href="AdminLTE/plugins/datepicker/datepicker3.css"/>
+                    <link
+                        rel="stylesheet"
+                        href="AdminLTE/plugins/daterangepicker/daterangepicker.css"/>
+                    <link
+                        rel="stylesheet"
+                        href="AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"/>
+                    <link
+                        rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
                 </head>
-                <body>
-                    <div className="row">
-                        <div className="col-md-2 fill">
-                            <div id="sidebar" className="well fill sidebar-nav">
-                                <h5>
-                                    <i className="glyphicon glyphicon-home"></i>
-                                    <small>
-                                        <b>HOME</b>
-                                    </small>
-                                </h5>
-                                <ul className="nav nav-pills nav-stacked">
-                                    <li>
-                                        <Link to="/index" activeClassName="active">Home</Link>
-                                    </li>
-                                </ul>
-                                <h5>
-                                    <i className="glyphicon glyphicon-user"></i>
-                                    <small>
-                                        <b>USERS</b>
-                                    </small>
-                                </h5>
-                                <ul className="nav nav-pills nav-stacked">
-                                    <li>
-                                        <Link to="/users" activeClassName="active">List Users</Link>
-                                    </li>
-                                </ul>
-                                <h5>
-                                    <i className="glyphicon glyphicon-envelope"></i>
-                                    <small>
-                                        <b>MESSAGES</b>
-                                    </small>
-                                </h5>
-                                <ul className="nav nav-pills nav-stacked">
-                                    <li>
-                                        <Link to="/messages" activeClassName="active">Messages</Link>
-                                    </li>
-                                </ul>
-                                <h5>
-                                    <i className="glyphicon glyphicon-picture"></i>
-                                    <small>
-                                        <b>MASKS</b>
-                                    </small>
-                                </h5>
-                                <ul className="nav nav-pills nav-stacked">
-                                    <li>
-                                        <Link to="/listMasks" activeClassName="active">List masks</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/createMask" activeClassName="active">Create mask</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-md-10">
-                            {this.props.children}
-                        </div>
+                <body className="skin-blue">
+                    <Header/>
+                    <Sidebar/>
+                    <div className="content-wrapper">
+                        {this.props.custom.token ? this.props.children : <LoginPage/>}
                     </div>
                     <script
                         dangerouslySetInnerHTML={{
                         __html: 'window.PROPS=' + JSON.stringify(custom)
                     }}/>
-                    <script src='/bundle.js'/>
+                    <script src="AdminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
+                    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+                    <script src="AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+                    <script src="AdminLTE/plugins/morris/morris.min.js"></script>
+                    <script src="AdminLTE/plugins/sparkline/jquery.sparkline.min.js"></script>
+                    <script src="AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+                    <script src="AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+                    <script src="AdminLTE/plugins/knob/jquery.knob.js"></script>
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+                    <script src="AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+                    <script src="AdminLTE/plugins/datepicker/bootstrap-datepicker.js"></script>
+                    <script src="AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+                    <script src="AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+                    <script src="AdminLTE/plugins/fastclick/fastclick.js"></script>
+                    <script src="AdminLTE/dist/js/app.min.js"></script>
+                    <script src='bundle.js'/>
                 </body>
             </html>
         );
