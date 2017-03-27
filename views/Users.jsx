@@ -266,11 +266,11 @@ var Users = React.createClass({
                                 <div className="box-header with-border">
                                     <h3 className="box-title">Modify user informations</h3>
                                 </div>
-                                <form role="form">
+                                <form className="form-horizontal" action="javascript:void(0);">
                                     <div className="box-body">
                                         <div className="form-group">
                                             <label htmlFor="pseudo">Pseudo</label>
-                                            <input className="form-control" id="pseudo" placeholder="Pseudo" type="email"/>
+                                            <input className="form-control" id="pseudo" placeholder="Pseudo" type="text"/>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="email">Email</label>
@@ -303,7 +303,10 @@ var Users = React.createClass({
                                         </div>
                                     </div>
                                     <div className="box-footer">
-                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                        <button onClick={this
+                                            .updateUser
+                                            .bind(this, this.state.userId)}
+                                            className="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -311,7 +314,7 @@ var Users = React.createClass({
                                 <div className="box-header with-border">
                                     <h3 className="box-title">Modify user address</h3>
                                 </div>
-                                <form role="form">
+                                <form className="form-horizontal" action="javascript:void(0);">
                                     <div className="box-body">
                                         <div className="form-group">
                                             <label htmlFor="addressType">Type d'adresse</label>
@@ -338,7 +341,10 @@ var Users = React.createClass({
                                         </div>
                                     </div>
                                     <div className="box-footer">
-                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                        <button onClick={this
+                                            .updateAddress
+                                            .bind(this, this.state.userId)}
+                                            className="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
                             </div>

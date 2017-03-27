@@ -5,15 +5,15 @@ var Modal = require('react-modal');
 var Notification = require('react-notification').Notification;
 const apiUrl = "http://localhost:3000/api";
 
-class ListShippingMethods extends React.Component {
+class ListDimensions extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             Data: []
         };
-        this.setShippingState = this
-            .setShippingState
+        this.setDimensionsState = this
+            .setDimensionsState
             .bind(this);
         this.openModal = this
             .openModal
@@ -26,10 +26,10 @@ class ListShippingMethods extends React.Component {
             .bind(this);
     }
 
-    getShipping() {
+    getDimensions() {
         var self = this;
         var custom = this.props.custom;
-        fetch(apiUrl + '/shipping', {
+        fetch(apiUrl + '/dimension', {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -40,25 +40,25 @@ class ListShippingMethods extends React.Component {
         }).then((response) => {
             return response.json()
         }).then((json) => {
-            self.setShippingState(json);
+            self.setDimensionsState(json);
         }).catch((ex) => {
             console.log('parsing failed', ex);
         })
     }
 
-    updateShipping(id) {
+    updateDimension(id) {
         var self = this;
         var custom = this.props.custom;
-        let nom = document
+        let width = document
+            .querySelector('#width')
+            .value;
+        let height = document
+            .querySelector('#height')
+            .value;
+        let name = document
             .querySelector('#name')
             .value;
-        let prix = document
-            .querySelector('#price')
-            .value;
-        let duration = document
-            .querySelector('#duration')
-            .value;
-        fetch(apiUrl + '/shipping/' + id, {
+        fetch(apiUrl + '/dimension/' + id, {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -66,19 +66,19 @@ class ListShippingMethods extends React.Component {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "x-access-token": custom.token
             },
-            body: "price=" + prix + "&name=" + nom + "&shippingDuration=" + duration
+            body: "width=" + width + "&height=" + height + "&name=" + name
         }).then((response) => {
             return response.json()
         }).then((json) => {
             self.closeModal();
             self.toggleNotification();
-            self.getShipping();
+            self.getDimensions();
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
     }
 
-    setShippingState(json) {
+    setDimensionsState(json) {
         this.setState({Data: json});
     }
 
@@ -88,7 +88,7 @@ class ListShippingMethods extends React.Component {
             isActive: false,
             shippingID: null
         };
-        this.getShipping();
+        this.getDimensions();
     }
 
     openModal(id) {
@@ -99,8 +99,8 @@ class ListShippingMethods extends React.Component {
         this.setState({modalIsOpen: true});
         var self = this;
         var custom = this.props.custom;
-        this.setState({shippingID: id});
-        fetch(apiUrl + '/shipping/' + id, {
+        this.setState({dimensionID: id});
+        fetch(apiUrl + '/dimension/' + id, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -113,14 +113,14 @@ class ListShippingMethods extends React.Component {
         }).then((json) => {
             console.log(json)
             document
+                .querySelector('#width')
+                .value = json.width;
+            document
+                .querySelector('#height')
+                .value = json.height;
+            document
                 .querySelector('#name')
                 .value = json.name;
-            document
-                .querySelector('#price')
-                .value = json.price;
-            document
-                .querySelector('#duration')
-                .value = json.shippingDuration;
         }).catch((ex) => {
             console.log('parsing failed', ex);
         });
@@ -146,7 +146,7 @@ class ListShippingMethods extends React.Component {
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all masks
+                        <h3 className="box-title">List of all dimensions
                         </h3>
 
                     </div>
@@ -155,26 +155,26 @@ class ListShippingMethods extends React.Component {
                             <tbody>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Hauteur</th>
+                                    <th>Largeur</th>
                                     <th>Nom</th>
-                                    <th>Prix</th>
-                                    <th>Durée de transport</th>
                                     <th className="pull-right">Mise a jour</th>
                                 </tr>
                                 {this
                                     .state
                                     .Data
-                                    .map((mask, index) => {
+                                    .map((dimension, index) => {
                                         return <tr key={index}>
-                                            <td>{mask.id}</td>
-                                            <td>{mask.name}</td>
-                                            <td>{mask.price}</td>
-                                            <td>{mask.shippingDuration} jours</td>
+                                            <td>{dimension.id}</td>
+                                            <td>{dimension.height}px</td>
+                                            <td>{dimension.width}px</td>
+                                            <td>{dimension.name}</td>
                                             <td className="pull-right">
                                                 <button
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
-                                                    .bind(this, mask.id)}>Mise a jour
+                                                    .bind(this, dimension.id)}>Mise a jour
                                                 </button>
                                             </td>
                                         </tr>;
@@ -187,11 +187,36 @@ class ListShippingMethods extends React.Component {
                         onRequestClose={this.closeModal}
                         contentLabel="Example Modal">
 
-                        <h2 className="text-center">Update Mask</h2>
+                        <h2 className="text-center">Update Dimension</h2>
                         <form className="form-horizontal" action="javascript:void(0);">
                             <fieldset className="text-center">
                                 <div className="control-group">
-                                    <label className="control-label" htmlFor="name">Nom</label>
+                                    <label className="control-label" htmlFor="name">Hauteur</label>
+                                    <div className="controls">
+                                        <input
+                                            type="text"
+                                            id="height"
+                                            name="height"
+                                            placeholder="Hauteur"
+                                            className="input-xlarge"/>
+                                        <p className="help-block">Nouvelle hauteur</p>
+                                    </div>
+                                </div>
+
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="price">Largeur</label>
+                                    <div className="controls">
+                                        <input
+                                            type="text"
+                                            id="width"
+                                            name="width"
+                                            placeholder="Largeur"
+                                            className="input-xlarge"/>
+                                        <p className="help-block">Nouvelle largeur</p>
+                                    </div>
+                                </div>
+                                <div className="control-group">
+                                    <label className="control-label" htmlFor="price">Nom</label>
                                     <div className="controls">
                                         <input
                                             type="text"
@@ -199,46 +224,21 @@ class ListShippingMethods extends React.Component {
                                             name="name"
                                             placeholder="Nom"
                                             className="input-xlarge"/>
-                                        <p className="help-block">Nouveau nom</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="price">Prix</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="price"
-                                            name="price"
-                                            placeholder="Prix"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouveau prix (en Euro)</p>
-                                    </div>
-                                </div>
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="price">Durée de livraison</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="duration"
-                                            name="duration"
-                                            placeholder="Durée de livraison"
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Nouvelle durée de livraison </p>
+                                        <p className="help-block">Nouveau nom </p>
                                     </div>
                                 </div>
                                 <div className="control-group">
                                     <div className="controls">
-                                        <input type="hidden" id="maskID"/>
+                                        <input type="hidden" id="dimensionID"/>
                                     </div>
                                 </div>
                                 <div className="control-group">
                                     <div className="controls">
                                         <button
                                             onClick={this
-                                            .updateShipping
-                                            .bind(this, this.state.shippingID)}
-                                            className="btn btn-success">Update Shipping method</button>
+                                            .updateDimension
+                                            .bind(this, this.state.dimensionID)}
+                                            className="btn btn-success">Update Dimension</button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -247,7 +247,7 @@ class ListShippingMethods extends React.Component {
                     </Modal>
                     <Notification
                         isActive={this.state.isActive}
-                        message="Shipping method has been updated"
+                        message="Dimension has been updated"
                         action="Dismiss"
                         onDismiss={this.toggleNotification}
                         onClick={() => this.setState({isActive: false})}/>
@@ -266,4 +266,4 @@ var wrapper = connect(function (state) {
     return {custom: state};
 });
 
-module.exports = wrapper(ListShippingMethods);
+module.exports = wrapper(ListDimensions);

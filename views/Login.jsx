@@ -42,6 +42,7 @@ module.exports = class Login extends React.Component {
             Router
                 .browserHistory
                 .push('/index');
+            console.log(123);
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })

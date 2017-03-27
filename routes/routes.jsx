@@ -17,6 +17,9 @@ module.exports = (
             <Route path='createMask' component={require('../views/CreateMask.jsx')} />
             <Route path='listShipping' component={require('../views/ListShippingMethods.jsx')} />
             <Route path='createShipping' component={require('../views/CreateShippingMethod.jsx')} />
+            <Route path='listDimensions' component={require('../views/ListDimensions.jsx')} />
+            <Route path='createDimension' component={require('../views/CreateDimension.jsx')} />
+            <Route path='listOrders' component={require('../views/ListOrders.jsx')} />
         </Route>
     </Router>
 );

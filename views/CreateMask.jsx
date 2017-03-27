@@ -57,16 +57,16 @@ class CreateMask extends React.Component {
             .querySelector('#dimensions')
             .value;
         let file = document.querySelector('#maskPNG');
-
         let data = new FormData();
 
         data.append('mask', file.files[0]);
         data.append('price', prix);
         data.append('name', nom);
         data.append('DimensionId', dimension);
+        data.append('fileName', file.files[0].name);
         console.log(data);
         fetch(apiUrl + '/mask', {
-            method: "PUT",
+            method: "POST",
             mode: 'cors',
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -76,6 +76,7 @@ class CreateMask extends React.Component {
         }).then((response) => {
             return response.json()
         }).then((json) => {
+            console.log(json);
             self.toggleNotification();
         }).catch((ex) => {
             console.log('parsing failed', ex)
@@ -105,7 +106,7 @@ class CreateMask extends React.Component {
         if (dimension) {
             return (
                 <div>
-                <form className="form-horizontal" action="javascript:void(0);">
+                <form className="form-horizontal" action="javascript:void(0);" encType="multipart/form-data">
                     <fieldset className="text-center">
                         <div className="control-group">
                             <label className="control-label" htmlFor="name">Nom</label>

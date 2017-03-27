@@ -62,6 +62,32 @@ var Layout = React.createClass({
                                 </li>
                             </ul>
                         </li>
+                        <li className="treeview">
+                            <a href="#">
+                                <i className="fa fa-arrows-h"></i>
+                                <span>Dimensions</span>
+                                <span className="pull-right-container">
+                                    <i className="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul className="treeview-menu">
+                                <li>
+                                    <a href="createDimension">
+                                        <i className="fa fa-circle-o"></i>
+                                        Create dimension</a>
+                                </li>
+                                <li>
+                                    <a href="listDimensions">
+                                        <i className="fa fa-circle-o"></i>
+                                        List dimensions</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="active">
+                            <a href="listOrders">
+                                <i className="fa fa-archive"></i>
+                                Orders</a>
+                        </li>
                     </ul>
                 </section>
             </aside>

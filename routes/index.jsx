@@ -10,7 +10,7 @@ function reducer(state) { return state; }
 
 router.get('*', function(request, response) {
     const token = request.cookies.Token;
-    var initialState = { title: 'Universal React', token: token };
+    var initialState = { title: 'PhotoExpresso', token: token };
     var store = Redux.createStore(reducer, initialState);
 
     ReactRouter.match({
