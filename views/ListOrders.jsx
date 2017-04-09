@@ -3,18 +3,22 @@ var connect = require('react-redux').connect;
 require('fetch-everywhere');
 var Modal = require('react-modal');
 var Notification = require('react-notification').Notification;
-const apiUrl = "http://localhost:3000/api";
+const apiUrl = "http://193.70.40.193:3000/api";
 
 class ListOrders extends React.Component {
 
     constructor(props) {
         super(props);
-        this.apiUrl = "http://localhost:3000/api";
+        this.apiUrl = "http://193.70.40.193:3000/api";
         this.state = {
             Data: [],
+            Order: []
         };
         this.setOrdersState = this
             .setOrdersState
+            .bind(this);
+        this.setOrderState = this
+            .setOrderState
             .bind(this);
         this.openModal = this
             .openModal
@@ -84,6 +88,10 @@ class ListOrders extends React.Component {
         this.setState({Data: json});
     }
 
+    setOrderState(json) {
+        this.setState({Order: json});
+    }
+
     componentDidMount() {
         this.state = {
             modalIsOpen: false,
@@ -113,6 +121,7 @@ class ListOrders extends React.Component {
         }).then((response) => {
             return response.json()
         }).then((json) => {
+            self.setOrderState(json);
             document
                 .querySelector('#name')
                 .value = json.name;
@@ -170,8 +179,8 @@ class ListOrders extends React.Component {
                                             <td>{order.id}</td>
                                             <td>{order.User.pseudo}</td>
                                             <td>{order.status}</td>
-                                            <td>{order.totalPriceHT}</td>
-                                            <td>{order.totalPriceTTC}</td>
+                                            <td>{order.totalPriceHT} €</td>
+                                            <td>{order.totalPriceTTC} €</td>
                                             <td>{order.Address.street} </td>
                                             <td> {order.Address.ZC} </td>
                                             <td> {order.Address.city}</td>
@@ -193,50 +202,7 @@ class ListOrders extends React.Component {
                             onRequestClose={this.closeModal}
                             contentLabel="Example Modal">
 
-                            <h2 className="text-center">Update Order</h2>
-                            <form className="form-horizontal" action="javascript:void(0);">
-                                <fieldset className="text-center">
-                                    <div className="control-group">
-                                        <label className="control-label" htmlFor="name">Nom</label>
-                                        <div className="controls">
-                                            <input
-                                                type="text"
-                                                id="name"
-                                                name="name"
-                                                placeholder="Nom"
-                                                className="input-xlarge"/>
-                                            <p className="help-block">Nouveau nom</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="control-group">
-                                        <label className="control-label" htmlFor="price">Prix</label>
-                                        <div className="controls">
-                                            <input
-                                                type="text"
-                                                id="price"
-                                                name="price"
-                                                placeholder="Prix"
-                                                className="input-xlarge"/>
-                                            <p className="help-block">Nouvel prix</p>
-                                        </div>
-                                    </div>
-                                    <div className="control-group">
-                                        <div className="controls">
-                                            <input type="hidden" id="orderID"/>
-                                        </div>
-                                    </div>
-                                    <div className="control-group">
-                                        <div className="controls">
-                                            <button
-                                                onClick={this
-                                                .updateOrder
-                                                .bind(this, this.state.orderID)}
-                                                className="btn btn-success">Update Order</button>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
+                        
 
                         </Modal>
                         <Notification

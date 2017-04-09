@@ -3,7 +3,7 @@ var connect = require('react-redux').connect;
 require('fetch-everywhere');
 var Modal = require('react-modal');
 var Notification = require('react-notification').Notification;
-const apiUrl = "http://localhost:3000/api";
+const apiUrl = "http://193.70.40.193:3000/api";
 
 class ListShippingMethods extends React.Component {
 

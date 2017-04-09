@@ -3,7 +3,7 @@ var connect = require('react-redux').connect;
 require('fetch-everywhere');
 var Modal = require('react-modal');
 var Notification = require('react-notification').Notification;
-const apiUrl = "http://localhost:3000/api";
+const apiUrl = "http://193.70.40.193:3000/api";
 
 var Users = React.createClass({
 
@@ -27,27 +27,6 @@ var Users = React.createClass({
             console.log('parsing failed', ex)
         })
     },
-
-    /*getAddresses: function (id) {
-        var self = this;
-        var custom = this.props.custom;
-        fetch(apiUrl + '/address/' + id, {
-            method: "GET",
-            mode: 'cors',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                "Content-Type": "application/x-www-form-urlencoded",
-                "x-access-token": custom.token
-            }
-        }).then((response) => {
-            return response.json()
-        }).then((json) => {
-            console.log('parsed json', json)
-            self.setUsersState(json)
-        }).catch((ex) => {
-            console.log('parsing failed', ex)
-        })
-    },*/
 
     updateUser(id) {
         var self = this;
