@@ -160,7 +160,8 @@ var Users = React.createClass({
             document
                 .querySelector('#userId')
                 .value = json.id;
-            document
+            if(json.Addresses[0]){
+                document
                 .querySelector('#addressType')
                 .value = json.Addresses[0].type;
             document
@@ -173,6 +174,7 @@ var Users = React.createClass({
                 .querySelector('#ZC')
                 .value = json.Addresses[0].ZC;
             this.setState({addressId: json.Addresses[0].id});
+            }
         }).catch((ex) => {
             console.log('parsing failed', ex)
         });
