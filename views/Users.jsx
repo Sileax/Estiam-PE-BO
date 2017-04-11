@@ -113,7 +113,8 @@ var Users = React.createClass({
         this.state = {
             modalIsOpen: false,
             isActive: false,
-            userId: null
+            userId: null,
+            addressId: null
         };
         this.getUsers();
     },
@@ -171,6 +172,7 @@ var Users = React.createClass({
             document
                 .querySelector('#ZC')
                 .value = json.Addresses[0].ZC;
+            this.setState({addressId: json.Addresses[0].id});
         }).catch((ex) => {
             console.log('parsing failed', ex)
         });
@@ -322,7 +324,7 @@ var Users = React.createClass({
                                     <div className="box-footer">
                                         <button onClick={this
                                             .updateAddress
-                                            .bind(this, this.state.userId)}
+                                            .bind(this, this.state.addressId)}
                                             className="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
