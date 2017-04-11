@@ -139,7 +139,6 @@ var Users = React.createClass({
         }).then((response) => {
             return response.json()
         }).then((json) => {
-            console.log(json.Addresses[0].type);
             document
                 .querySelector('#pseudo')
                 .value = json.pseudo;
