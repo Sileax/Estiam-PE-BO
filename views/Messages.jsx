@@ -115,6 +115,10 @@ var Users = React.createClass({
     },
 
     closeModal() {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "visible";
         this.setState({modalIsOpen: false});
     },
     render: function () {
