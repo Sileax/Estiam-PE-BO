@@ -55,15 +55,10 @@ class ListOrders extends React.Component {
     updateOrder(id) {
         var self = this;
         var custom = this.props.custom;
-        let nom = document
-            .querySelector('#name')
+        let status = document
+            .querySelector('#select-status')
             .value;
-        let prix = document
-            .querySelector('#price')
-            .value;
-        let dimension = document
-            .querySelector('#dimensions')
-            .value;
+        console.log(id);
         fetch(apiUrl + '/order/' + id, {
             method: "POST",
             mode: 'cors',
@@ -72,7 +67,7 @@ class ListOrders extends React.Component {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "x-access-token": custom.token
             },
-            body: "price=" + prix + "&name=" + nom + "&DimensionId=" + dimension
+            body: "status="+status
         }).then((response) => {
             return response.json()
         }).then((json) => {
@@ -89,7 +84,7 @@ class ListOrders extends React.Component {
     }
 
     setOrderState(json) {
-        this.setState({Order: json});
+        this.setState({Order: json.Items});
     }
 
     componentDidMount() {
@@ -122,12 +117,46 @@ class ListOrders extends React.Component {
             return response.json()
         }).then((json) => {
             self.setOrderState(json);
-            document
-                .querySelector('#name')
-                .value = json.name;
-            document
-                .querySelector('#price')
-                .value = json.price;
+            let i = 1;
+            let totalPrice = 0;
+            let itemNumber = 0;
+            let delivererNumber = 0;
+            for(var item of json[0].Items){
+                let price = 0;
+                itemNumber++;
+                let id = "Item0";
+                var str = '<td style="width:100px"><img class="img-item" src="http://193.70.40.193:3000/' + item.Photo.filePath  + '"/></td>' +
+                '<td>' +
+                '<ul>';
+                for(var deliverer of item.deliverers){
+                    if(deliverer.delivererDetail){
+                        delivererNumber++;
+                        price += parseInt(item.Mask.price);
+                        str +=
+                            '<li> Nom : ' + deliverer.delivererDetail.name + ' , ' + deliverer.delivererDetail.street + ' ' + deliverer.delivererDetail.ZC + ' ' + deliverer.delivererDetail.city + '</li><br/>' +
+                            'Message : ' + deliverer.message + '<br/>';
+                            totalPrice += parseInt(item.Mask.price);
+                    }
+                }
+                            /*'<div className="progress progress-xs">' +
+                            '<div className="progress-bar progress-bar-danger" style={{width: 55}}></div>' +
+                            '</div>' + */
+                str +=  '</ul>' +
+                        '</td>' +
+                        '<td>' +
+                            price + "€"
+                        '</td>'
+                var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
+                i++;
+                tr.setAttribute("id", "Item"+i);
+                tr.innerHTML = str;
+            }
+        let totalPriceStr = '<td> TOTAL ITEMS : ' + itemNumber + '</td>' +
+                            '<td> TOTAL DELIVERERS : ' + delivererNumber + '</td>' +
+                            '<td> TOTAL PRICE : ' + totalPrice + '€ </td>';
+            var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
+            tr.innerHTML = totalPriceStr;
+            document.querySelector('#select-status').value = json[0].status;
         }).catch((ex) => {
             console.log('parsing failed', ex);
         });
@@ -147,9 +176,13 @@ class ListOrders extends React.Component {
         this.setState({modalIsOpen: false});
     }
 
+    getOrder(){
+        
+    }
+
     render() {
-        var order = this.state.Data;
-        if (order) {
+        var orders = this.state.Data;
+        if (orders) {
             return (
                 <div className="box">
                     <div className="box-header">
@@ -202,7 +235,39 @@ class ListOrders extends React.Component {
                             onRequestClose={this.closeModal}
                             contentLabel="Example Modal">
 
-                        
+                            <div className="box">
+            <div className="box-header with-border">
+              <h3 className="box-title">Bordered Table</h3>
+            </div>
+            <div className="box-body" id="listOrder">
+              <table className="table table-bordered">
+                <tbody id="Item0"><tr>
+                  <th>Items</th>
+                  <th>Deliverers</th>
+                  <th>Price</th>
+                </tr>
+               
+              </tbody></table>
+              <label htmlFor="select-status">Order status : </label>
+              <select id="select-status">
+                   <option value=""></option>
+                   <option value="Pending">Pending</option>
+                   <option value="Processing">Processing</option>
+                   <option value="Shipping">Shipping</option>
+                   <option value="Shipped">Shipped</option>
+                   <option value="Received">Received</option>
+              </select>
+              <div className="control-group">
+                    <div className="controls">
+                        <button
+                            onClick={this
+                            .updateOrder
+                            .bind(this, this.state.orderID)}
+                            className="btn btn-success">Update Mask</button>
+                    </div>
+                </div>
+            </div>
+          </div>
 
                         </Modal>
                         <Notification

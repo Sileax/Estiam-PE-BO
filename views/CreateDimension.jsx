@@ -9,7 +9,7 @@ class CreateDimension extends React.Component {
 
     constructor(props) {
         super(props);
-        this.apiUrl = "http://localhost:3000/api";
+        this.apiUrl = "http://193.70.40.193:3000/api";
         this.state = {
             isActive: false
         };

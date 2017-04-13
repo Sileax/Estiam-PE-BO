@@ -1,9 +1,10 @@
 var React = require('react');
 var cookie = require('react-cookie');
+var connect = require('react-redux').connect;
 var Router = require('react-router');
 require('whatwg-fetch');
 
-module.exports = class Login extends React.Component {
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
@@ -35,17 +36,26 @@ module.exports = class Login extends React.Component {
             let today = new Date();
             today = today.setHours(today.getHours() + 6);
             let expire = new Date(today);
-            cookie.save('Token', json.token, {
+            if(cookie.load("Token") === undefined){
+                cookie.save('Token', json.token, {
                 path: "/",
                 expires: expire
             });
             Router
                 .browserHistory
                 .push('/index');
-            console.log(123);
+            }
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
+    }
+
+    componentDidMount() {
+        if(this.props.custom.token.length > 10){
+            Router
+                .browserHistory
+                .push('/index');
+        }
     }
 
     render() {
@@ -90,3 +100,9 @@ module.exports = class Login extends React.Component {
     }
 
 }
+
+var wrapper = connect(function (state) {
+    return {custom: state};
+});
+
+module.exports = wrapper(Login);

@@ -1,6 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var connect = require('react-redux').connect;
+var cookie = require('react-cookie');
 var Header = require('./Header.jsx');
 var Sidebar = require('./Sidebar2.jsx');
 var LoginPage = require('./Login.jsx');
@@ -11,6 +12,7 @@ var Layout = React.createClass({
     },
     render: function () {
         var custom = this.props.custom;
+        console.log(custom);
         return (
             <html>
                 <head>
@@ -42,7 +44,7 @@ var Layout = React.createClass({
                     <Header/>
                     <Sidebar/>
                     <div className="content-wrapper">
-                        {this.props.custom.token ? this.props.children : <LoginPage/>}
+                        {this.props.custom.token ? (this.props.custom.token.length > 10 ? (cookie.load("Token") ? this.props.children : <LoginPage/>) : <LoginPage/>) : <LoginPage/>}
                     </div>
                     <script
                         dangerouslySetInnerHTML={{
