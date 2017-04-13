@@ -33,6 +33,7 @@ var Users = React.createClass({
         let message = document.querySelector('#answer').value;
         let deliverer = document.querySelector('#deliverer').value;
         let subject = document.querySelector('#subject').value;
+        var custom = this.props.custom;
         fetch(apiUrl + '/contact/answer' + id, {
             method: "POST",
             mode: 'cors',
@@ -71,6 +72,10 @@ var Users = React.createClass({
         this.getUsers();
     },
     openModal(id) {
+        document
+            .querySelector('.main-sidebar')
+            .style
+            .visibility = "hidden";
         this.setState({modalIsOpen: true});
         var self = this;
         var custom = this.props.custom;
@@ -207,7 +212,7 @@ var Users = React.createClass({
                                 </div>
                                 <div className="form-group">
                                     <label>Reponse</label>
-                                    <textarea id="answer" className="form-control" rows="3" placeholder="Reponse..."></textarea>
+                                    <textarea id="answer" className="form-control" rows="10" placeholder="Reponse..."></textarea>
                                 </div>
                                 <div className="control-group">
                                     <div className="controls">
