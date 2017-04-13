@@ -80,6 +80,7 @@ var Users = React.createClass({
         var self = this;
         var custom = this.props.custom;
         this.setState({messageId: id});
+        console.log(id);
         fetch(apiUrl + '/contact/' + id, {
             method: "GET",
             mode: 'cors',
