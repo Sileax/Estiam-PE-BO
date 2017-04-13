@@ -213,6 +213,7 @@ class ListOrders extends React.Component {
                                     .state
                                     .Data
                                     .map((order, index) => {
+                                        console.log(order)
                                         return <tr key={index}>
                                             <td>{order.id}</td>
                                             <td>{order.User.pseudo}</td>
