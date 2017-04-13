@@ -9,11 +9,11 @@ var Layout = React.createClass({
             <aside className="main-sidebar">
                 <section className="sidebar">
                     <ul className="sidebar-menu">
-                        <li className="header">MAIN NAVIGATION</li>
+                        <li className="header">Naivgation</li>
                         <li className="active">
                             <a href="users">
                                 <i className="fa fa-user"></i>
-                                List users</a>
+                                Liste des utilisateurs</a>
                         </li>
                         <li className="active">
                             <a href="messages">
@@ -23,7 +23,7 @@ var Layout = React.createClass({
                         <li className="treeview">
                             <a href="#">
                                 <i className="fa fa-picture-o"></i>
-                                <span>Masks</span>
+                                <span>Masques</span>
                                 <span className="pull-right-container">
                                     <i className="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -32,19 +32,19 @@ var Layout = React.createClass({
                                 <li>
                                     <a href="createMask">
                                         <i className="fa fa-circle-o"></i>
-                                        Create masks</a>
+                                        Creer masque</a>
                                 </li>
                                 <li>
                                     <a href="listMasks">
                                         <i className="fa fa-circle-o"></i>
-                                        List masks</a>
+                                        Liste des masques</a>
                                 </li>
                             </ul>
                         </li>
                         <li className="treeview">
                             <a href="#">
                                 <i className="fa fa-truck"></i>
-                                <span>Shipping methods</span>
+                                <span>Methodes de livraisons</span>
                                 <span className="pull-right-container">
                                     <i className="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -53,19 +53,19 @@ var Layout = React.createClass({
                                 <li>
                                     <a href="createShipping">
                                         <i className="fa fa-circle-o"></i>
-                                        Create shipping method</a>
+                                        Creer methode de livraison</a>
                                 </li>
                                 <li>
                                     <a href="listShipping">
                                         <i className="fa fa-circle-o"></i>
-                                        List shipping methods</a>
+                                        Liste des methodes de livraison</a>
                                 </li>
                             </ul>
                         </li>
                         <li className="treeview">
                             <a href="#">
                                 <i className="fa fa-arrows-h"></i>
-                                <span>Dimensions</span>
+                                <span>Formats</span>
                                 <span className="pull-right-container">
                                     <i className="fa fa-angle-left pull-right"></i>
                                 </span>
@@ -74,19 +74,19 @@ var Layout = React.createClass({
                                 <li>
                                     <a href="createDimension">
                                         <i className="fa fa-circle-o"></i>
-                                        Create dimension</a>
+                                        Creer format</a>
                                 </li>
                                 <li>
                                     <a href="listDimensions">
                                         <i className="fa fa-circle-o"></i>
-                                        List dimensions</a>
+                                        Liste des formats</a>
                                 </li>
                             </ul>
                         </li>
                         <li className="active">
                             <a href="listOrders">
                                 <i className="fa fa-archive"></i>
-                                Orders</a>
+                                Liste des commandes</a>
                         </li>
                     </ul>
                 </section>

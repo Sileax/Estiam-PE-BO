@@ -318,7 +318,7 @@ var Users = React.createClass({
                                             <input className="form-control" id="city" placeholder="Ville" type="text"/>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="ZC">Prenom</label>
+                                            <label htmlFor="ZC">Code postal</label>
                                             <input className="form-control" id="ZC" placeholder="Code postal" type="text"/>
                                         </div>
                                     </div>
