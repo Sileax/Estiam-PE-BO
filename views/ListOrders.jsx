@@ -150,10 +150,15 @@ class ListOrders extends React.Component {
                 i++;
                 tr.setAttribute("id", "Item"+i);
                 tr.innerHTML = str;
+                let shippingMethod = '<td>Mode de livraison  : ' + json[0].ShippingMethod.name + '</td>' +
+                            '<td></td>' +
+                            '<td> Prix : ' + json[0].ShippingMethod.price + '€ </td>';
+            var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
+            tr.innerHTML = totalPriceStr;
             }
-        let totalPriceStr = '<td> TOTAL ITEMS : ' + itemNumber + '</td>' +
-                            '<td> TOTAL DELIVERERS : ' + delivererNumber + '</td>' +
-                            '<td> TOTAL PRICE : ' + totalPrice + '€ </td>';
+        let totalPriceStr = '<td> Nombre d\'articles : ' + itemNumber + '</td>' +
+                            '<td> Nombre de destinataires : ' + delivererNumber + '</td>' +
+                            '<td> Prix total : ' + totalPrice + '€ </td>';
             var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
             tr.innerHTML = totalPriceStr;
             document.querySelector('#select-status').value = json[0].status;
