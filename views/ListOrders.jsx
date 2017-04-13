@@ -154,7 +154,7 @@ class ListOrders extends React.Component {
                             '<td></td>' +
                             '<td> Prix : ' + json[0].ShippingMethod.price + '€ </td>';
             var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
-            tr.innerHTML = totalPriceStr;
+            tr.innerHTML = shippingMethod;
             }
         let totalPriceStr = '<td> Nombre d\'articles : ' + itemNumber + '</td>' +
                             '<td> Nombre de destinataires : ' + delivererNumber + '</td>' +
