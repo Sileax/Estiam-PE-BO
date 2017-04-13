@@ -34,7 +34,7 @@ var Users = React.createClass({
         let deliverer = document.querySelector('#deliverer').value;
         let subject = document.querySelector('#subject').value;
         var custom = this.props.custom;
-        fetch(apiUrl + '/contact/answer' + id, {
+        fetch(apiUrl + '/contact/answer' {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -91,6 +91,7 @@ var Users = React.createClass({
         }).then((response) => {
             return response.json()
         }).then((json) => {
+            console.log(json)
             document
             .querySelector('#deliverer')
             .value = json.email;
