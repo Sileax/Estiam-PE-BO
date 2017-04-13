@@ -205,9 +205,9 @@ var Users = React.createClass({
                                             className="input-xlarge"/>
                                     </div>
                                 </div>
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="answer">Reponse</label>
-                                    <textarea id="answer"/>
+                                <div class="form-group">
+                                    <label>Reponse</label>
+                                    <textarea id="answer" class="form-control" rows="3" placeholder="Reponse..."></textarea>
                                 </div>
                                 <div className="control-group">
                                     <div className="controls">
