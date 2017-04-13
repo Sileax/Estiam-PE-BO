@@ -117,11 +117,13 @@ class ListOrders extends React.Component {
             return response.json()
         }).then((json) => {
             self.setOrderState(json);
+            let Shipping = null;
             let i = 1;
             let totalPrice = 0;
             let itemNumber = 0;
             let delivererNumber = 0;
             for(var item of json[0].Items){
+                Shipping = json[0].ShippingMethod;
                 let price = 0;
                 itemNumber++;
                 let id = "Item0";
@@ -150,12 +152,13 @@ class ListOrders extends React.Component {
                 i++;
                 tr.setAttribute("id", "Item"+i);
                 tr.innerHTML = str;
-                let shippingMethod = '<td>Mode de livraison  : ' + json[0].ShippingMethod.name + '</td>' +
+            }
+            let shippingMethod = '<td>Mode de livraison  : ' + Shipping.name + '</td>' +
                             '<td></td>' +
-                            '<td> Prix : ' + json[0].ShippingMethod.price + '€ </td>';
+                            '<td> Prix : ' + Shipping.price + '€ </td>';
             var tr = document.getElementById('Item0').appendChild(document.createElement('tr'));
             tr.innerHTML = shippingMethod;
-            }
+            totalPrice += parseInt(Shipping.price);
         let totalPriceStr = '<td> Nombre d\'articles : ' + itemNumber + '</td>' +
                             '<td> Nombre de destinataires : ' + delivererNumber + '</td>' +
                             '<td> Prix total : ' + totalPrice + '€ </td>';
