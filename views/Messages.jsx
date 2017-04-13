@@ -66,7 +66,7 @@ var Users = React.createClass({
         this.state = {
             modalIsOpen: false,
             isActive: false,
-            userId: null
+            messageId: null
         };
         this.getUsers();
     },
@@ -74,7 +74,7 @@ var Users = React.createClass({
         this.setState({modalIsOpen: true});
         var self = this;
         var custom = this.props.custom;
-        this.setState({userId: id});
+        this.setState({messageId: id});
         fetch(apiUrl + '/contact/' + id, {
             method: "GET",
             mode: 'cors',
@@ -213,8 +213,8 @@ var Users = React.createClass({
                                     <div className="controls">
                                         <button
                                             onClick={this
-                                            .updateUser
-                                            .bind(this, this.state.userId)}
+                                            .answer
+                                            .bind(this, this.state.messageId)}
                                             className="btn btn-success">Update user</button>
                                     </div>
                                 </div>
