@@ -28,25 +28,12 @@ var Users = React.createClass({
         })
     },
 
-    updateUser(id) {
+    answer(id) {
         var self = this;
-        var custom = this.props.custom;
-        let pseudo = document
-            .querySelector('#pseudo')
-            .value;
-        let prenom = document
-            .querySelector('#firstname')
-            .value;
-        let nom = document
-            .querySelector('#lastname')
-            .value;
-        let email = document
-            .querySelector('#email')
-            .value;
-        let birthday = document
-            .querySelector('#birthday')
-            .value;
-        fetch(apiUrl + '/users/' + id, {
+        let message = document.querySelector('#answer').value;
+        let deliverer = document.querySelector('#deliverer').value;
+        let subject = document.querySelector('#subject').value;
+        fetch(apiUrl + '/contact/answer' + id, {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -54,7 +41,7 @@ var Users = React.createClass({
                 "Content-Type": "application/x-www-form-urlencoded",
                 "x-access-token": custom.token
             },
-            body: "pseudo=" + pseudo + "&email=" + email + "&prenom=" + prenom + "&nom=" + nom + "&birthday=" + birthday + "&oldPassword="
+            body: "email="+ deliverer +"&message=" + message + "&subject=" + subject
         }).then((response) => {
             return response.json()
         }).then((json) => {
@@ -88,7 +75,7 @@ var Users = React.createClass({
         var self = this;
         var custom = this.props.custom;
         this.setState({userId: id});
-        fetch(apiUrl + '/users/' + id, {
+        fetch(apiUrl + '/contact/' + id, {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -99,27 +86,12 @@ var Users = React.createClass({
         }).then((response) => {
             return response.json()
         }).then((json) => {
-            console.log(json);
             document
-                .querySelector('#pseudo')
-                .value = json.pseudo;
+            .querySelector('#deliverer')
+            .value = json.email;
             document
-                .querySelector('#firstname')
-                .value = json.prenom;
-            document
-                .querySelector('#lastname')
-                .value = json.nom;
-            document
-                .querySelector('#email')
-                .value = json.email;
-            document
-                .querySelector('#birthday')
-                .value = json
-                .birthday
-                .replace(/T00:00:00.000Z/, '');
-            document
-                .querySelector('#userId')
-                .value = json.id;
+            .querySelector('#subject')
+            .value = json.subject;
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
@@ -211,74 +183,31 @@ var Users = React.createClass({
                         <h2 ref="subtitle" className="text-center">Modify User</h2>
                         < form className="form-horizontal" action="javascript:void(0);">
                             <fieldset className="text-center">
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="pseudo">Pseudo</label>
+                            <div className="control-group">
+                                    <label className="control-label" htmlFor="price">Destinataire</label>
                                     <div className="controls">
                                         <input
                                             type="text"
-                                            id="pseudo"
-                                            name="pseudo"
-                                            placeholder=""
+                                            id="deliverer"
+                                            name="deliverer"
+                                            placeholder="Largeur"
                                             className="input-xlarge"/>
-                                        <p className="help-block">Nouveau pseudo</p>
                                     </div>
                                 </div>
-
                                 <div className="control-group">
-                                    <label className="control-label" htmlFor="email">E-mail</label>
+                                    <label className="control-label" htmlFor="price">Sujet</label>
                                     <div className="controls">
                                         <input
                                             type="text"
-                                            id="email"
-                                            name="email"
-                                            placeholder=""
+                                            id="subject"
+                                            name="subject"
+                                            placeholder="Subject"
                                             className="input-xlarge"/>
-                                        <p className="help-block">Nouvel email</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="birthday">Date de Naissance</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="birthday"
-                                            name="birthday"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier date de naissance</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="firstname">Prenom</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="firstname"
-                                            name="firstname"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier Prenom</p>
-                                    </div>
-                                </div>
-
-                                <div className="control-group">
-                                    <label className="control-label" htmlFor="lastname">Nom</label>
-                                    <div className="controls">
-                                        <input
-                                            type="text"
-                                            id="lastname"
-                                            name="lastname"
-                                            placeholder=""
-                                            className="input-xlarge"/>
-                                        <p className="help-block">Modifier Prenom</p>
                                     </div>
                                 </div>
                                 <div className="control-group">
-                                    <div className="controls">
-                                        <input type="hidden" id="userId"/>
-                                    </div>
+                                    <label className="control-label" htmlFor="answer">Reponse</label>
+                                    <textarea id="answer"/>
                                 </div>
                                 <div className="control-group">
                                     <div className="controls">
