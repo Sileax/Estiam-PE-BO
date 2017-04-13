@@ -35,7 +35,7 @@ var Users = React.createClass({
         let subject = document.querySelector('#subject').value;
         var custom = this.props.custom;
         fetch(apiUrl + '/contact/answer', {
-            method: "POST",
+            method: "PUT",
             mode: 'cors',
             headers: {
                 'Access-Control-Allow-Origin': '*',
