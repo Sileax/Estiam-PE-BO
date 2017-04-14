@@ -48,7 +48,6 @@ var Users = React.createClass({
         }).then((json) => {
             self.closeModal();
             self.toggleNotification();
-            self.getMessages();
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
@@ -69,6 +68,7 @@ var Users = React.createClass({
             return response.json()
         }).then((json) => {
             self.toggleNotification();
+            self.getMessages();
         }).catch((ex) => {
             console.log('parsing failed', ex)
         })
