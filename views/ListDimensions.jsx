@@ -179,7 +179,7 @@ class ListDimensions extends React.Component {
                                     <th>Largeur</th>
                                     <th>Nom</th>
                                     <th className="pull-right">Mise a jour</th>
-                                    <th>Supprimer</th>
+                                    <th className="pull-right">Supprimer</th>
                                 </tr>
                                 {this
                                     .state
@@ -202,7 +202,7 @@ class ListDimensions extends React.Component {
                                                 <button
                                                     className="btn btn-danger btn-flat"
                                                     onClick={this
-                                                    .openModal
+                                                    .deleteDimension
                                                     .bind(this, dimension.id)}>Supprimer
                                                 </button>
                                             </td>
