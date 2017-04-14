@@ -33,7 +33,10 @@ class Login extends React.Component {
             return response.json()
         }).then((json) => {
             console.log('parsed json', json);
-            let today = new Date();
+            if(json.error !== undefined){
+                document.querySelector('#error').style.visibility = "visible";
+            } else {
+                let today = new Date();
             today = today.setHours(today.getHours() + 6);
             let expire = new Date(today);
             if(cookie.load("Token") === undefined){
@@ -44,6 +47,7 @@ class Login extends React.Component {
             Router
                 .browserHistory
                 .push('/index');
+            }
             }
         }).catch((ex) => {
             console.log('parsing failed', ex)
@@ -90,6 +94,11 @@ class Login extends React.Component {
                                 className="btn btn-primary btn-block btn-flat"
                                 name="Submit"
                                 value="Login">Sign In</button>
+                        </div>
+                    </div>
+                    <div id="error" className="row" style={{visibility: hidden}}>
+                        <div className="col-xs-12">
+                            <span style={{color:red}}> Username or password invalid</span>
                         </div>
                     </div>
                 </form>

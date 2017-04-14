@@ -221,7 +221,6 @@ var Users = React.createClass({
                                         return <tr key={index}>
                                             <td>{user.pseudo}</td>
                                             <td>{user.email}</td>
-                                            <td>22</td>
                                             <td>{user.nom}</td>
                                             <td>{user.prenom}</td>
                                             <td>
@@ -257,14 +256,6 @@ var Users = React.createClass({
                                         <div className="form-group">
                                             <label htmlFor="email">Email</label>
                                             <input className="form-control" id="email" placeholder="Email" type="email"/>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="birthday">Date de Naissance</label>
-                                            <input
-                                                className="form-control"
-                                                id="birthday"
-                                                placeholder="Date de naissance"
-                                                type="text"/>
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="firstname">Prenom</label>
