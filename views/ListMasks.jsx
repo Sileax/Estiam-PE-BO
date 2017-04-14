@@ -31,6 +31,26 @@ class ListMasks extends React.Component {
             .bind(this);
     }
 
+    deleteMask(id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch(apiUrl + '/mask/' + id, {
+            method: "DELETE",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.getMasks();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    }
+
     getMasks() {
         var self = this;
         var custom = this.props.custom;
@@ -186,6 +206,7 @@ class ListMasks extends React.Component {
                                     <th>Nom</th>
                                     <th>Prix</th>
                                     <th className="pull-right">Mise a jour</th>
+                                    <th className="pull-right">Supprimer</th>
                                 </tr>
                                 {this
                                     .state
@@ -200,6 +221,14 @@ class ListMasks extends React.Component {
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
+                                                    .bind(this, mask.id)}>Update mask
+                                                </button>
+                                            </td>
+                                            <td className="pull-right">
+                                                <button
+                                                    className="btn btn-danger btn-flat"
+                                                    onClick={this
+                                                    .deleteMask
                                                     .bind(this, mask.id)}>Update mask
                                                 </button>
                                             </td>

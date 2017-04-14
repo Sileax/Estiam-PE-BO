@@ -160,7 +160,7 @@ var Users = React.createClass({
                                     <th>Sujet</th>
                                     <th>Message</th>
                                     <th>Lire</th>
-                                    <th>Delete</th>
+                                    <th>Supprimer</th>
                                 </tr>
                                 {this
                                     .state
@@ -196,7 +196,7 @@ var Users = React.createClass({
                                                     className="btn btn-danger btn-flat"
                                                     onClick={this
                                                     .deleteMessage
-                                                    .bind(this, message.id)}>Delete
+                                                    .bind(this, message.id)}>Supprimer
                                                 </button>
                                             </td>
                                         </tr>

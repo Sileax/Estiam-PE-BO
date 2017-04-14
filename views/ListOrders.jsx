@@ -52,6 +52,26 @@ class ListOrders extends React.Component {
         })
     }
 
+    deleteOrder(id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch(apiUrl + '/order/' + id, {
+            method: "DELETE",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.getOrders();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    }
+
     updateOrder(id) {
         var self = this;
         var custom = this.props.custom;
@@ -211,6 +231,7 @@ class ListOrders extends React.Component {
                                     <th>Code Postal</th>
                                     <th>Ville</th>
                                     <th className="pull-right">Mise a jour</th>
+                                    <th className="pull-right">Supprimer</th>
                                 </tr>
                                 {this
                                     .state
@@ -231,7 +252,15 @@ class ListOrders extends React.Component {
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
-                                                    .bind(this, order.id)}>Update order
+                                                    .bind(this, order.id)}>Mise a jour
+                                                </button>
+                                            </td>
+                                            <td className="pull-right">
+                                                <button
+                                                    className="btn btn-danger btn-flat"
+                                                    onClick={this
+                                                    .deleteOrder
+                                                    .bind(this, order.id)}>Supprimer
                                                 </button>
                                             </td>
                                         </tr>;

@@ -46,6 +46,26 @@ class ListShippingMethods extends React.Component {
         })
     }
 
+    deleteShipping(id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch(apiUrl + '/shipping/' + id, {
+            method: "DELETE",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.getShipping();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    }
+
     updateShipping(id) {
         var self = this;
         var custom = this.props.custom;
@@ -160,6 +180,7 @@ class ListShippingMethods extends React.Component {
                                     <th>Prix</th>
                                     <th>Durée de transport</th>
                                     <th className="pull-right">Mise a jour</th>
+                                    <th className="pull-right">Supprimer</th>
                                 </tr>
                                 {this
                                     .state
@@ -175,6 +196,14 @@ class ListShippingMethods extends React.Component {
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
+                                                    .bind(this, mask.id)}>Mise a jour
+                                                </button>
+                                            </td>
+                                            <td className="pull-right">
+                                                <button
+                                                    className="btn btn-primary btn-flat"
+                                                    onClick={this
+                                                    .deleteShipping
                                                     .bind(this, mask.id)}>Mise a jour
                                                 </button>
                                             </td>

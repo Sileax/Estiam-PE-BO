@@ -46,6 +46,26 @@ class ListDimensions extends React.Component {
         })
     }
 
+    deleteDimension(id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch(apiUrl + '/dimension/' + id, {
+            method: "DELETE",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.getDimensions();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+    }
+
     updateDimension(id) {
         var self = this;
         var custom = this.props.custom;
@@ -159,6 +179,7 @@ class ListDimensions extends React.Component {
                                     <th>Largeur</th>
                                     <th>Nom</th>
                                     <th className="pull-right">Mise a jour</th>
+                                    <th>Supprimer
                                 </tr>
                                 {this
                                     .state
@@ -238,7 +259,16 @@ class ListDimensions extends React.Component {
                                             onClick={this
                                             .updateDimension
                                             .bind(this, this.state.dimensionID)}
-                                            className="btn btn-success">Update Dimension</button>
+                                            className="btn btn-primary btn-flat">Mise a jour</button>
+                                    </div>
+                                </div>
+                                <div className="control-group">
+                                    <div className="controls">
+                                        <button
+                                            onClick={this
+                                            .deleteDimension
+                                            .bind(this, this.state.dimensionID)}
+                                            className="btn btn-danger btn-flat"></button>
                                     </div>
                                 </div>
                             </fieldset>
