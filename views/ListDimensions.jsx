@@ -179,7 +179,7 @@ class ListDimensions extends React.Component {
                                     <th>Largeur</th>
                                     <th>Nom</th>
                                     <th className="pull-right">Mise a jour</th>
-                                    <th>Supprimer
+                                    <th>Supprimer</th>
                                 </tr>
                                 {this
                                     .state
