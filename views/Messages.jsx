@@ -70,7 +70,7 @@ var Users = React.createClass({
             self.toggleNotification();
         }).catch((ex) => {
             console.log('parsing failed', ex)
-        })
+        }),
 
     setUsersState: function (json) {
         this.setState({Data: json});
