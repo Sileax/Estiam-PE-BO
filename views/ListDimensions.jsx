@@ -166,7 +166,7 @@ class ListDimensions extends React.Component {
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all dimensions
+                        <h3 className="box-title">Liste de tous les formats
                         </h3>
 
                     </div>

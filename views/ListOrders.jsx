@@ -214,7 +214,7 @@ class ListOrders extends React.Component {
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all orders
+                        <h3 className="box-title">Liste de toutes les commandes
                         </h3>
 
                     </div>

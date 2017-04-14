@@ -194,7 +194,7 @@ class ListMasks extends React.Component {
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all masks
+                        <h3 className="box-title">Liste de tous les masques
                         </h3>
 
                     </div>

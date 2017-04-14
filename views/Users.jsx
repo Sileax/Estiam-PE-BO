@@ -199,7 +199,7 @@ var Users = React.createClass({
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all registered users
+                        <h3 className="box-title">Liste des utilisateurs enregistrés
                         </h3>
 
                     </div>
