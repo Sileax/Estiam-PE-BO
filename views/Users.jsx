@@ -209,7 +209,6 @@ var Users = React.createClass({
                                 <tr>
                                     <th>Pseudo</th>
                                     <th>Email</th>
-                                    <th>Age</th>
                                     <th>Nom</th>
                                     <th>Prenom</th>
                                     <th>Mise a jour</th>
