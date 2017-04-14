@@ -229,7 +229,7 @@ class ListMasks extends React.Component {
                                                     className="btn btn-danger btn-flat"
                                                     onClick={this
                                                     .deleteMask
-                                                    .bind(this, mask.id)}>Update mask
+                                                    .bind(this, mask.id)}>Supprimer
                                                 </button>
                                             </td>
                                         </tr>;

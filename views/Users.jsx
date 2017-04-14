@@ -229,7 +229,7 @@ var Users = React.createClass({
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
-                                                    .bind(this, user.userId)}>Update User
+                                                    .bind(this, user.userId)}>Mise a jour
                                                 </button>
                                             </td>
                                         </tr>;
@@ -288,7 +288,7 @@ var Users = React.createClass({
                                         <button onClick={this
                                             .updateUser
                                             .bind(this, this.state.userId)}
-                                            className="btn btn-primary">Submit</button>
+                                            className="btn btn-primary">Mise a jour</button>
                                     </div>
                                 </form>
                             </div>

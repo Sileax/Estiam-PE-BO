@@ -167,7 +167,7 @@ class ListShippingMethods extends React.Component {
             return (
                 <div className="box">
                     <div className="box-header">
-                        <h3 className="box-title">List of all masks
+                        <h3 className="box-title">Liste des modes de livraison
                         </h3>
 
                     </div>
@@ -201,10 +201,10 @@ class ListShippingMethods extends React.Component {
                                             </td>
                                             <td className="pull-right">
                                                 <button
-                                                    className="btn btn-primary btn-flat"
+                                                    className="btn btn-danger btn-flat"
                                                     onClick={this
                                                     .deleteShipping
-                                                    .bind(this, mask.id)}>Mise a jour
+                                                    .bind(this, mask.id)}>Supprimer
                                                 </button>
                                             </td>
                                         </tr>;

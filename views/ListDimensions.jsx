@@ -198,6 +198,14 @@ class ListDimensions extends React.Component {
                                                     .bind(this, dimension.id)}>Mise a jour
                                                 </button>
                                             </td>
+                                            <td className="pull-right">
+                                                <button
+                                                    className="btn btn-danger btn-flat"
+                                                    onClick={this
+                                                    .openModal
+                                                    .bind(this, dimension.id)}>Supprimer
+                                                </button>
+                                            </td>
                                         </tr>;
                                     })}
 
@@ -262,15 +270,7 @@ class ListDimensions extends React.Component {
                                             className="btn btn-primary btn-flat">Mise a jour</button>
                                     </div>
                                 </div>
-                                <div className="control-group">
-                                    <div className="controls">
-                                        <button
-                                            onClick={this
-                                            .deleteDimension
-                                            .bind(this, this.state.dimensionID)}
-                                            className="btn btn-danger btn-flat"></button>
-                                    </div>
-                                </div>
+                                
                             </fieldset>
                         </form>
 
