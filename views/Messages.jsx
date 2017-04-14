@@ -7,7 +7,7 @@ const apiUrl = "http://193.70.40.193:3000/api";
 
 var Users = React.createClass({
 
-    getUsers: function () {
+    getMessages: function () {
         var self = this;
         var custom = this.props.custom;
         fetch(apiUrl + '/contact', {
@@ -53,6 +53,25 @@ var Users = React.createClass({
         })
     },
 
+    deleteMessage(id) {
+        var self = this;
+        var custom = this.props.custom;
+        fetch(apiUrl + '/contact/' + id, {
+            method: "DELETE",
+            mode: 'cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": custom.token
+            },
+        }).then((response) => {
+            return response.json()
+        }).then((json) => {
+            self.toggleNotification();
+        }).catch((ex) => {
+            console.log('parsing failed', ex)
+        })
+
     setUsersState: function (json) {
         this.setState({Data: json});
         console.log(json);
@@ -69,7 +88,7 @@ var Users = React.createClass({
             isActive: false,
             messageId: null
         };
-        this.getUsers();
+        this.getMessages();
     },
     openModal(id) {
         document
@@ -138,6 +157,7 @@ var Users = React.createClass({
                                     <th>Expéditeur</th>
                                     <th>Sujet</th>
                                     <th>Message</th>
+                                    <th>Delete</th>
                                     <th>Lire</th>
                                 </tr>
                                 {this
@@ -153,31 +173,27 @@ var Users = React.createClass({
                                         }
                                         return <tr key={index}>
                                             <td className="mailbox-name">
-                                                {message.readed
-                                                    ? <span>{email}</span>
-                                                    : <b>
-                                                        {email}
-                                                    </b>}
+                                                <span>{email}</span>
                                             </td>
                                             <td className="mailbox-name">
-                                                {message.readed
-                                                    ? <span>{subject}</span>
-                                                    : <b>
-                                                        {subject}
-                                                    </b>}
+                                                <span>{subject}</span>
                                             </td>
                                             <td className="mailbox-subject">
-                                                {message.readed
-                                                    ? <span>{messageText}</span>
-                                                    : <b>
-                                                        {messageText}
-                                                    </b>}
+                                                <span>{messageText}</span>
                                             </td>
                                             <td>
                                                 <button
                                                     className="btn btn-primary btn-flat"
                                                     onClick={this
                                                     .openModal
+                                                    .bind(this, message.id)}>Read
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className="btn btn-primary btn-flat"
+                                                    onClick={this
+                                                    .deleteMessage
                                                     .bind(this, message.id)}>Read
                                                 </button>
                                             </td>
@@ -191,7 +207,7 @@ var Users = React.createClass({
                         onAfterOpen={this.afterOpenModal}
                         onRequestClose={this.closeModal}
                         contentLabel="Example Modal">
-                        <h2 ref="subtitle" className="text-center">Modify User</h2>
+                        <h2 ref="subtitle" className="text-center">Answer</h2>
                         < form className="form-horizontal" action="javascript:void(0);">
                             <fieldset className="text-center">
                             <div className="control-group">
@@ -234,7 +250,7 @@ var Users = React.createClass({
                     </Modal >
                     <Notification
                         isActive={this.state.isActive}
-                        message="User has been updated"
+                        message="Done"
                         action="Dismiss"
                         onDismiss={this.toggleNotification}
                         onClick={() => this.setState({isActive: false})}/>
