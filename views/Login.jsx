@@ -96,7 +96,7 @@ class Login extends React.Component {
                                 value="Login">Sign In</button>
                         </div>
                     </div>
-                    <div id="error" className="row" style={{visibility: hidden}}>
+                    <div id="error" className="row" style={{visibility: "hidden"}}>
                         <div className="col-xs-12">
                             <span style={{color:red}}> Username or password invalid</span>
                         </div>
